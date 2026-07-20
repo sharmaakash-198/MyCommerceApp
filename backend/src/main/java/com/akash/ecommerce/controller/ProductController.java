@@ -38,4 +38,18 @@ public class ProductController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PostMapping("/product")
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        return new ResponseEntity<>(service.addProduct(product), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/product/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable int id, @RequestBody Product product) {
+        Product updated = service.updateProduct(id, product);
+        if (updated != null) {
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
